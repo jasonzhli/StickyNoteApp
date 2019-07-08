@@ -32,6 +32,16 @@ var showDatabaseContents = function() {
   }
 }
 
+var showNotes = function() {
+  $('.notes').html('');
+
+  for (var i = 0; i <window.localStorage.length; i++) {
+    var key = window.localStorage.key(i);
+    $('.notes').append(`<div class="p-1 m-1 bg-info text-white h-auto" style="width: 200px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}</div>`);
+  }
+}
+
+
 var keyExists = function(key) {
   return window.localStorage.getItem(key) !== null
 }
@@ -51,6 +61,8 @@ var resetInputs = function() {
 
 $(document).ready(function() {
   showDatabaseContents();
+  showNotes();
+
 
   $('.create').click(function() {
     if (getKeyInput() !== '' && getValueInput() !== '') {
@@ -62,6 +74,7 @@ $(document).ready(function() {
       } else {
         createItem(getKeyInput(), getValueInput());
         showDatabaseContents();
+        showNotes();
         resetInputs();
       }
     } else  {
@@ -105,6 +118,7 @@ $(document).ready(function() {
     if (confirm('WARNING: Are you sure you want to clear the database? \n                THIS ACTION CANNOT BE UNDONE')) {
       clearDatabase();
       showDatabaseContents();
+      showNotes();
     }
   })
 })

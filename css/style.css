@@ -18,3 +18,16 @@ th {
 label {
   text-decoration: underline;
 }
+
+.super-container {
+	display: flex;
+	justify-content: center;
+	max-width:100%;
+	overflow-x: scroll; 
+}
+
+.notes {
+	display: flex;
+	width: 800px;
+	flex-wrap: wrap;
+}
