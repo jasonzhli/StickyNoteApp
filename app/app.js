@@ -37,7 +37,7 @@ var showNotes = function() {
 
   for (var i = 0; i <window.localStorage.length; i++) {
     var key = window.localStorage.key(i);
-    $('.notes').append(`<div class="p-1 m-1 bg-info text-white h-auto" style="width: 200px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}</div>`);
+    $('.notes').append(`<div class="h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><span class="trashcan"><i class="fa fa-trash"></i></span></div>`);
   }
 }
 
@@ -63,6 +63,9 @@ $(document).ready(function() {
   showDatabaseContents();
   showNotes();
 
+  $('.trashcan').click(function() {
+    alert('hello');
+  })
 
   $('.create').click(function() {
     if (getKeyInput() !== '' && getValueInput() !== '') {

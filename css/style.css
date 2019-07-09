@@ -21,13 +21,20 @@ label {
 
 .super-container {
 	display: flex;
-	justify-content: center;
-	max-width:100%;
-	overflow-x: scroll; 
+	justify-content: flex-start;
+	/*max-width:100%;*/
+	/*overflow-x: scroll; */
 }
 
 .notes {
 	display: flex;
-	width: 800px;
+	width: 1000px;
 	flex-wrap: wrap;
 }
+
+.trashcan {
+	display: inline-block;
+	float: right;
+  	vertical-align: -100px;
+}
+
