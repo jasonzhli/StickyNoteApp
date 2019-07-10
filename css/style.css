@@ -19,22 +19,36 @@ label {
   text-decoration: underline;
 }
 
+.notewriter {
+	display: flex;
+	justify-content: center;
+}
+
 .super-container {
 	display: flex;
-	justify-content: flex-start;
-	/*max-width:100%;*/
-	/*overflow-x: scroll; */
+	justify-content: center;
+/*	width: 800px;
+	max-width:100%;
+	overflow-x: scroll; */
 }
 
 .notes {
 	display: flex;
-	width: 1000px;
+	justify-content: flex-start;
+/*	width: 778px;
+	max-width:100%
+	overflow-x: scroll; */
 	flex-wrap: wrap;
 }
 
-.trashcan {
-	display: inline-block;
-	float: right;
-  	vertical-align: -100px;
+.fa-trash {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	cursor: pointer;
+}
+
+.note {
+	word-wrap: break-word;
 }
 

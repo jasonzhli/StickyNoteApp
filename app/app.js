@@ -37,7 +37,8 @@ var showNotes = function() {
 
   for (var i = 0; i <window.localStorage.length; i++) {
     var key = window.localStorage.key(i);
-    $('.notes').append(`<div class="h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><span class="trashcan"><i class="fa fa-trash"></i></span></div>`);
+    $('.notes').append(`<div class="note h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><div class="row mt-3"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Edit</button><i class="fa fa-trash"></i></div></div>`);
   }
 }
 
@@ -63,8 +64,12 @@ $(document).ready(function() {
   showDatabaseContents();
   showNotes();
 
-  $('.trashcan').click(function() {
-    alert('hello');
+  $('.fa-trash').click(function() {
+    // console.log(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
+    deleteItem(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
+    location.reload(true);
+    // showDatabaseContents();
+    // showNotes();
   })
 
   $('.create').click(function() {
@@ -104,6 +109,7 @@ $(document).ready(function() {
       if (keyExists(getKeyInput())) {
         deleteItem(getKeyInput());
         showDatabaseContents();
+        showNotes();
         resetInputs();
       } else {
         alert('key does not exist in database');
