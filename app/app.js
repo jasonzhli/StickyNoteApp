@@ -64,6 +64,13 @@ $(document).ready(function() {
   showDatabaseContents();
   showNotes();
 
+  $(".dropdown-menu").on('click', '.dropdown-item', function(){
+
+      $("#dropdownMenu:first-child").text($(this).text());
+      $("#dropdownMenu:first-child").val($(this).text());
+
+   });
+
   $('.fa-trash').click(function() {
     // console.log(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
     deleteItem(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
