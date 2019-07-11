@@ -5,7 +5,7 @@
 - [ ] How to modify data? (update action, delete action)
 
 */
-
+var keyID = 0;
 //localStorage functions
 var createItem = function(key, value) {
   return window.localStorage.setItem(key, value);
@@ -37,8 +37,8 @@ var showNotes = function() {
 
   for (var i = 0; i <window.localStorage.length; i++) {
     var key = window.localStorage.key(i);
-    $('.notes').append(`<div class="note h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><div class="row mt-3"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Edit</button><i class="fa fa-trash"></i></div></div>`);
+    $('.notes').append(`<div class="note h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><div class="row mt-3 edit-button"><button type="button" class="btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModal">
+    Edit</button><button type="button" class="delete-note btn-sm btn-danger m-1 mr-3">Delete</button></div></div>`);
   }
 }
 
@@ -71,10 +71,11 @@ $(document).ready(function() {
 
    });
 
-  $('.fa-trash').click(function() {
+  $('.delete-note').click(function() {
     // console.log(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
-    deleteItem(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
-    location.reload(true);
+    console.log(this);
+    console.log(this.parentElement.parentElement);
+    // location.reload(true);
     // showDatabaseContents();
     // showNotes();
   })
