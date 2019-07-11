@@ -8,6 +8,7 @@
 var keyID = 0;
 //localStorage functions
 var createItem = function(key, value) {
+  keyID++;
   return window.localStorage.setItem(key, value);
 }
 
@@ -23,22 +24,41 @@ var clearDatabase = function() {
   return window.localStorage.clear();
 }
 
-var showDatabaseContents = function() {
-  $('tbody').html('');
+// var showDatabaseContents = function() {
+//   $('tbody').html('');
 
-  for (var i = 0; i < window.localStorage.length; i++) {
-    var key = window.localStorage.key(i);
-    $('tbody').append(`<tr><td>${key}</td><td>${window.localStorage.getItem(key)}</td></tr>`)
-  }
-}
+//   for (var i = 0; i < window.localStorage.length; i++) {
+//     var key = window.localStorage.key(i);
+//     $('tbody').append(`<tr><td>${key}</td><td>${window.localStorage.getItem(key)}</td></tr>`)
+//   }
+// }
+
+// div class="note h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"
+        // <button type="button" class="delete-note btn-xs btn-danger m-1 mr-4"><small>Delete</small></button>
+        // <button type="button" class="btn-xs btn-primary m-1" data-toggle="modal" data-target="#exampleModal"><small>Edit</small></button>
 
 var showNotes = function() {
-  $('.notes').html('');
+  $('.card-columns').html('');
 
   for (var i = 0; i <window.localStorage.length; i++) {
     var key = window.localStorage.key(i);
-    $('.notes').append(`<div class="note h-auto rounded-lg p-2 m-1 bg-info text-white" style="width: 250px"><strong>${key}</strong><br>${window.localStorage.getItem(key)}<br><div class="row mt-3 edit-button"><button type="button" class="btn-sm btn-primary m-1" data-toggle="modal" data-target="#exampleModal">
-    Edit</button><button type="button" class="delete-note btn-sm btn-danger m-1 mr-3">Delete</button></div></div>`);
+    var element = 
+    `<div class="card bg-light mb-3" style="max-width: 18rem; min-width: 10rem">
+      <div class="card-body">
+        <h5 class="card-title">${key}</h5>
+        <div class="note-body">
+          <p class=card-text">${window.localStorage.getItem(key)}
+        </div>
+      </div>
+      <div class="row mt-1 footer-buttons">
+        <i class="m-1 p-1 edit-delete-buttons" data-feather="edit-2"></i>
+        <i class="delete-note m-1 mr-4 p-1 edit-delete-buttons" data-feather="trash-2"></i>
+      </div>
+    </div>
+    <script>
+      feather.replace()
+    </script>`;
+    $('.card-columns').append(element);
   }
 }
 
@@ -61,7 +81,7 @@ var resetInputs = function() {
 }
 
 $(document).ready(function() {
-  showDatabaseContents();
+  // showDatabaseContents();
   showNotes();
 
   $(".dropdown-menu").on('click', '.dropdown-item', function(){
@@ -81,28 +101,32 @@ $(document).ready(function() {
   })
 
   $('.create').click(function() {
+    console.log(getKeyInput());
     if (getKeyInput() !== '' && getValueInput() !== '') {
-      if (keyExists(getKeyInput())) {
-        if(confirm('key already exists in database, do you want to update instead?')) {
-          updateItem(getKeyInput(), getValueInput());
-          showDatabaseContents();
-        }
-      } else {
-        createItem(getKeyInput(), getValueInput());
-        showDatabaseContents();
-        showNotes();
-        resetInputs();
-      }
-    } else  {
+      // if (keyExists(getKeyInput())) {
+      //   if(confirm('key already exists in database, do you want to update instead?')) {
+      //     updateItem(getKeyInput(), getValueInput());
+      //     showDatabaseContents();
+      //   }
+      //   // createItem(keyID);
+      //   showNotes();
+      //   resetInputs();
+      // }
+      createItem(getKeyInput(),getValueInput());
+      showNotes();
+      resetInputs();
+    }
+    else {
       alert('key and value must not be blank');
     }
-  });
+  })
+// });
 
   $('.update').click(function() {
     if (getKeyInput() !== '' && getValueInput() !== '') {
       if (keyExists(getKeyInput())) {
         updateItem(getKeyInput(), getValueInput());
-        showDatabaseContents();
+        // showDatabaseContents();
         resetInputs();
       } else {
         alert('key does not exist in database');
@@ -116,7 +140,7 @@ $(document).ready(function() {
      if (getKeyInput() !== '') {
       if (keyExists(getKeyInput())) {
         deleteItem(getKeyInput());
-        showDatabaseContents();
+        // showDatabaseContents();
         showNotes();
         resetInputs();
       } else {
@@ -134,7 +158,7 @@ $(document).ready(function() {
   $('.clear').click(function() {
     if (confirm('WARNING: Are you sure you want to clear the database? \n                THIS ACTION CANNOT BE UNDONE')) {
       clearDatabase();
-      showDatabaseContents();
+      // showDatabaseContents();
       showNotes();
     }
   })

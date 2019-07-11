@@ -35,22 +35,41 @@ label {
 .notes {
 	display: flex;
 	justify-content: flex-start;
-/*	width: 778px;
-	max-width:100%
-	overflow-x: scroll; */
 	flex-wrap: wrap;
 }
 
-.fa-trash {
+
+.note-body {
+	word-wrap: break-word;
+	white-space: pre-line;
+}
+
+.footer-buttons {
 	display: flex;
 	justify-content: flex-end;
-	align-items: flex-end;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+  padding: .25rem .4rem;
+  font-size: .875rem;
+  line-height: .5;
+  border-radius: .2rem;
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}
+
+.edit-delete-buttons {
 	cursor: pointer;
 }
 
-.note {
-	word-wrap: break-word;
-}
+/*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";*/
 
 /*.add-note-button {
 	display:flex;
