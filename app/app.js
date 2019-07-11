@@ -44,8 +44,9 @@ var showNotes = function() {
     var key = window.localStorage.key(i);
     var value = JSON.parse(window.localStorage.getItem(key))[0];
     var date = timeago.format(JSON.parse(window.localStorage.getItem(key))[1]);
+    var color = JSON.parse(window.localStorage.getItem(key))[2];
     var element = 
-    `<div class="card bg-light mb-3 note-card">
+    `<div class="card mb-3 note-card" style="background-color: ${color}">
       <div class="card-body">
         <h5 class="card-title note-title">${key}</h5>
         <div class="note-body">
@@ -106,6 +107,7 @@ $(document).ready(function() {
   //   });
 
   $(".dropdown-menu").on('click', '.dropdown-item', function(){
+      // console.log($("#dropdownMenu:first-child").text());
 
       $("#dropdownMenu:first-child").text($(this).text());
       $("#dropdownMenu:first-child").val($(this).text());
@@ -123,6 +125,23 @@ $(document).ready(function() {
 
   $('.create').on('click', function() {
     var date = new Date();
+    var color = $("#dropdownMenu:first-child").text();
+    if (color === 'White') {
+      color = '#F8F9FA';
+    } else if (color === 'Red') {
+      color = '#F28B82';
+    } else if (color === 'Blue') {
+      color = '#CBF0F8';
+    } else if (color === 'Teal') {
+      color = '#A7FFEB';
+    } else if (color === 'Yellow') {
+      color = '#FFF475';
+    } else if (color === 'Brown') {
+      color = '#E6CAA8';
+    } else if (color === 'Grey') {
+      color = '#E8EAED';
+    }
+
     if (getKeyInput() !== '' && getValueInput() !== '') {
       // if (keyExists(getKeyInput())) {
       //   if(confirm('key already exists in database, do you want to update instead?')) {
@@ -133,7 +152,7 @@ $(document).ready(function() {
       //   showNotes();
       //   resetInputs();
       // }
-      var valueInput = [getValueInput(),date]; // try
+      var valueInput = [getValueInput(),date,color]; // try
       console.log(valueInput);
       createItem(getKeyInput(),valueInput);
       showNotes();
