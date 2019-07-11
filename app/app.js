@@ -5,11 +5,10 @@
 - [ ] How to modify data? (update action, delete action)
 
 */
-var keyID = 0;
 //localStorage functions
 var createItem = function(key, value) {
-  keyID++;
-  return window.localStorage.setItem(key, value);
+  var stringifyValue = JSON.stringify(value);
+  return window.localStorage.setItem(key,stringifyValue);
 }
 
 var updateItem = function(key, value) {
@@ -42,17 +41,22 @@ var showNotes = function() {
 
   for (var i = 0; i <window.localStorage.length; i++) {
     var key = window.localStorage.key(i);
+    var value = JSON.parse(window.localStorage.getItem(key))[0];
+    var date = timeago.format(JSON.parse(window.localStorage.getItem(key))[1]);
     var element = 
-    `<div class="card bg-light mb-3" style="max-width: 18rem; min-width: 10rem">
+    `<div class="card bg-light mb-3 note-card" style="max-width: 18rem; min-width: 10rem">
       <div class="card-body">
-        <h5 class="card-title">${key}</h5>
+        <h5 class="card-title note-title">${key}</h5>
         <div class="note-body">
-          <p class=card-text">${window.localStorage.getItem(key)}
+          <p class=card-text">${value}
         </div>
       </div>
-      <div class="row mt-1 footer-buttons">
-        <i class="m-1 p-1 edit-delete-buttons" data-feather="edit-2"></i>
-        <i class="delete-note m-1 mr-4 p-1 edit-delete-buttons" data-feather="trash-2"></i>
+      <div class="row mt-1 wrapper">
+        <small class="text-muted ml-4 mb-3">&nbsp;&nbsp;&nbsp;created ${date}</small>
+        <div class="footer-buttons">
+          <i class="m-1 p-1 edit-delete-buttons" data-feather="edit-2"></i>
+          <i class="delete-note m-1 mr-4 p-1 edit-delete-buttons" data-feather="trash-2"></i>
+        </div>
       </div>
     </div>
     <script>
@@ -83,6 +87,22 @@ var resetInputs = function() {
 $(document).ready(function() {
   // showDatabaseContents();
   showNotes();
+  
+  $(".card-columns")
+  .on("mouseenter", ".note-card", function() {
+    $(this).find(".footer-buttons").css("display","flex");
+    $(this).find(".edit-delete-buttons").fadeIn();
+  })
+  .on("mouseleave", ".note-card", function() {
+    // $(this).find(".footer-buttons").css("display","none");
+    $(this).find(".edit-delete-buttons").fadeOut(200);
+  });
+
+  // $(document).on('mouseenter', '.note-card', function () {
+  //       $(this).find(":icon").show();
+  //   }).on('mouseleave', '.note-card', function () {
+  //       $(this).find(":icon").hide();
+  //   });
 
   $(".dropdown-menu").on('click', '.dropdown-item', function(){
 
@@ -91,7 +111,7 @@ $(document).ready(function() {
 
    });
 
-  $('.delete-note').click(function() {
+  $('.delete-note').on('click',function() {
     // console.log(this.parentElement.getElementsByTagName('strong')[0].innerHTML);
     console.log(this);
     console.log(this.parentElement.parentElement);
@@ -100,8 +120,8 @@ $(document).ready(function() {
     // showNotes();
   })
 
-  $('.create').click(function() {
-    console.log(getKeyInput());
+  $('.create').on('click', function() {
+    var date = new Date();
     if (getKeyInput() !== '' && getValueInput() !== '') {
       // if (keyExists(getKeyInput())) {
       //   if(confirm('key already exists in database, do you want to update instead?')) {
@@ -112,7 +132,9 @@ $(document).ready(function() {
       //   showNotes();
       //   resetInputs();
       // }
-      createItem(getKeyInput(),getValueInput());
+      var valueInput = [getValueInput(),date]; // try
+      console.log(valueInput);
+      createItem(getKeyInput(),valueInput);
       showNotes();
       resetInputs();
     }
@@ -122,7 +144,7 @@ $(document).ready(function() {
   })
 // });
 
-  $('.update').click(function() {
+  $('.update').on('click', function() {
     if (getKeyInput() !== '' && getValueInput() !== '') {
       if (keyExists(getKeyInput())) {
         updateItem(getKeyInput(), getValueInput());
@@ -136,7 +158,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.delete').click(function() {
+  $('.delete').on('click', function() {
      if (getKeyInput() !== '') {
       if (keyExists(getKeyInput())) {
         deleteItem(getKeyInput());
@@ -151,11 +173,11 @@ $(document).ready(function() {
     }
   });
 
-  $('.reset').click(function() {
+  $('.reset').on('click', function() {
     resetInputs();
   })
 
-  $('.clear').click(function() {
+  $('.clear').on('click', function() {
     if (confirm('WARNING: Are you sure you want to clear the database? \n                THIS ACTION CANNOT BE UNDONE')) {
       clearDatabase();
       // showDatabaseContents();
