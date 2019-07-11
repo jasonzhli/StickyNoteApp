@@ -36,6 +36,7 @@ var clearDatabase = function() {
         // <button type="button" class="delete-note btn-xs btn-danger m-1 mr-4"><small>Delete</small></button>
         // <button type="button" class="btn-xs btn-primary m-1" data-toggle="modal" data-target="#exampleModal"><small>Edit</small></button>
 
+        // after note-card: style="max-width: 18rem; min-width: 10rem"
 var showNotes = function() {
   $('.card-columns').html('');
 
@@ -44,7 +45,7 @@ var showNotes = function() {
     var value = JSON.parse(window.localStorage.getItem(key))[0];
     var date = timeago.format(JSON.parse(window.localStorage.getItem(key))[1]);
     var element = 
-    `<div class="card bg-light mb-3 note-card" style="max-width: 18rem; min-width: 10rem">
+    `<div class="card bg-light mb-3 note-card">
       <div class="card-body">
         <h5 class="card-title note-title">${key}</h5>
         <div class="note-body">
