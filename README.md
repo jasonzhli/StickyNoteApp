@@ -1,22 +1,4 @@
-# hrext10-my-cruddy-app
 Create Read Update and Delete framework using JS
-
- ## Tasks
-
- ### Basic Reqs
-- [x] Where to store data? (localstorage)
-- [x] How to caputure data? (web form)
-- [x] How to modify data? (update action, delete action)
-- [x] How to view data? (style?)
-- [ ] UI/UX considerations (how are we going to use this)
-
- ### Advanced Reqs
-- [ ] update/delete column
-- [ ] button disabling when input values are invalid
-
-create, update/modify data, and delete data, and view that data
-
------
 
 This web app is a sticky note wall or dashboard, similar to that of google keep or tumblr.
 
@@ -32,6 +14,6 @@ This web app is a sticky note wall or dashboard, similar to that of google keep 
 - time created at bottom of sticky note
 - reactive to browser sizing for columns
 
- ## Did not get time to complete:
+ ## to be completed:
  - Adding pictures to dashboard
 
